@@ -10,9 +10,10 @@
 // import 'package:e_commerce_flutter/screens/sign_up/sign_up_screen.dart';
 // import 'package:e_commerce_flutter/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:source_code/screens/CountDownScreen/count_down_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
-  // SplashScreen.routeName: (context) => SplashScreen(),
+  CountDownScreen.routeName: (context) => CountDownScreen(),
   // SignInScreen.routeName: (context) => SignInScreen(),
   // ForgotPassword.routeName: (context) => ForgotPassword(),
   // LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
