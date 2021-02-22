@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:source_code/size_config.dart';
 
-import 'components/body.dart';
+import './components/body.dart';
+import './components/app_drawer.dart';
 
 class CountDownScreen extends StatelessWidget {
   static String routeName = "/countdown";
@@ -12,6 +13,7 @@ class CountDownScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Ngày chung đôi"),
       ),
+      drawer: AppDrawer(),
       body: Body(),
     );
   }
