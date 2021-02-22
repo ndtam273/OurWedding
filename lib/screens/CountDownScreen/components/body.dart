@@ -6,7 +6,7 @@ class Body extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: Image(image: AssetImage('graphics/background.png'));
+          image: AssetImage("assets/images/background.png"),
           fit: BoxFit.cover,
         ),
       ),

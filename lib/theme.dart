@@ -30,15 +30,15 @@ InputDecorationTheme inputDecorationTheme() {
 TextTheme textTheme() {
   return TextTheme(
     bodyText1: TextStyle(
-      color: kTextColor,
+      color: Colors.redAccent,
     ),
-    bodyText2: TextStyle(color: kTextColor),
+    bodyText2: TextStyle(color: Colors.white),
   );
 }
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-      color: Colors.purple,
+      color: Colors.redAccent,
       elevation: 0,
       brightness: Brightness.dark,
       iconTheme: IconThemeData(color: Colors.white),
