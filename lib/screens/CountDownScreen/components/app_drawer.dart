@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:source_code/screens/ChangeBackgroundScreen/change_background_screen.dart';
 
 import '../count_down_screen.dart';
 
@@ -21,6 +22,14 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           Divider(),
+          ListTile(
+            leading: Icon(Icons.picture_in_picture),
+            title: Text('Change background'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(ChangeBackgroundScreen.routeName);
+            },
+          ),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:source_code/screens/CountDownScreen/components/app_drawer.dart';
 
 import '../../size_config.dart';
 import 'components/body.dart';
@@ -13,6 +14,7 @@ class ChangeBackgroundScreen extends StatelessWidget {
         title: Text("Đổi ảnh nền"),
       ),
       body: Body(),
+      drawer: AppDrawer(),
     );
   }
 }
