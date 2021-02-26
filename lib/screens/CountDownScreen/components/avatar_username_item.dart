@@ -17,8 +17,8 @@ class AvatarUserNameItem extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundColor: Colors.white,
-              child: Text('Avatar'),
+              backgroundImage:
+                  AssetImage("assets/images/avatar_user_empty.png"),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),

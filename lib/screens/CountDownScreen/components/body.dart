@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './avatar_username_item.dart';
 import './infomation_item.dart';
+import './infomation_datetime.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -20,7 +21,7 @@ class Body extends StatelessWidget {
             InfomationItem(
               title: 'Thời gian tới ngày kết hôn',
             ),
-            InfomationItem(
+            InfomationDateTimeItem(
               title: '0:0:0:0',
             ),
             InfomationItem(

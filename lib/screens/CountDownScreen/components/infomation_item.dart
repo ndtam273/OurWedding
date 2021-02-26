@@ -12,16 +12,13 @@ class InfomationItem extends StatelessWidget {
     return Container(
       height: 100,
       width: double.infinity,
-      child: FlatButton(
-        onPressed: () {},
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),
