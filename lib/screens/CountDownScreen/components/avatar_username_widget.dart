@@ -25,6 +25,7 @@ class AvatarUserNameWidget extends StatelessWidget {
               child: Text(
                 username,
                 style: TextStyle(
+                  fontSize: 18.0,
                   color: Colors.white,
                 ),
               ),

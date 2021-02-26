@@ -18,6 +18,7 @@ class InfomationWidget extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
+              fontSize: 20.0,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
