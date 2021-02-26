@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './avatar_username_widget.dart';
-import './infomation_widget.dart';
+import './avatar_username_item.dart';
+import './infomation_item.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -17,13 +17,13 @@ class Body extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            InfomationWidget(
+            InfomationItem(
               title: 'Thời gian tới ngày kết hôn',
             ),
-            InfomationWidget(
+            InfomationItem(
               title: '0:0:0:0',
             ),
-            InfomationWidget(
+            InfomationItem(
               title: 'Ngày Giờ Phút Giây',
             ),
             Container(
@@ -32,10 +32,10 @@ class Body extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  AvatarUserNameWidget(
+                  AvatarUserNameItem(
                     username: 'User Name 1',
                   ),
-                  AvatarUserNameWidget(
+                  AvatarUserNameItem(
                     username: 'User Name 2',
                   ),
                 ],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class InfomationWidget extends StatelessWidget {
+class InfomationItem extends StatelessWidget {
   final String title;
 
-  InfomationWidget({
+  InfomationItem({
     this.title,
   });
 

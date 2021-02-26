@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AvatarUserNameWidget extends StatelessWidget {
+class AvatarUserNameItem extends StatelessWidget {
   final String username;
 
-  AvatarUserNameWidget({
+  AvatarUserNameItem({
     this.username,
   });
 
