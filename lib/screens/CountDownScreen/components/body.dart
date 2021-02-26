@@ -1,53 +1,44 @@
 import 'package:flutter/material.dart';
 
+import './avatar_username_widget.dart';
+import './infomation_widget.dart';
+
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: Image(image: AssetImage('graphics/background.png'));
+          image: AssetImage("assets/images/background.png"),
           fit: BoxFit.cover,
         ),
       ),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: 100,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  'Thời gian tới ngày kết hôn',
-                ),
-              ),
+            InfomationWidget(
+              title: 'Thời gian tới ngày kết hôn',
+            ),
+            InfomationWidget(
+              title: '0:0:0:0',
+            ),
+            InfomationWidget(
+              title: 'Ngày Giờ Phút Giây',
             ),
             Container(
-              height: 100,
+              height: 200,
               width: double.infinity,
-              child: Center(
-                child: Text(
-                  '0:0:0:0',
-                ),
-              ),
-            ),
-            Container(
-              height: 100,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  'Ngày  Giờ  Phút  Giây',
-                ),
-              ),
-            ),
-            Container(
-              height: 300,
-              width: double.infinity,
-              color: Colors.amber,
-              child: Center(
-                child: Text(
-                  'Avatar',
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  AvatarUserNameWidget(
+                    username: 'User Name 1',
+                  ),
+                  AvatarUserNameWidget(
+                    username: 'User Name 2',
+                  ),
+                ],
               ),
             ),
           ],
