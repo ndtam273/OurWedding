@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AvatarUserNameWidget extends StatelessWidget {
+class AvatarUserNameItem extends StatelessWidget {
   final String username;
 
-  AvatarUserNameWidget({
+  AvatarUserNameItem({
     this.username,
   });
 
@@ -17,8 +17,8 @@ class AvatarUserNameWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundColor: Colors.white,
-              child: Text('Avatar'),
+              backgroundImage:
+                  AssetImage("assets/images/avatar_user_empty.png"),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
