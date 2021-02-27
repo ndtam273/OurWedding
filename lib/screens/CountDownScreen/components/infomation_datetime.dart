@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
+import './local_manager.dart';
+
 class InfomationDateTimeItem extends StatefulWidget {
   final String title;
 
@@ -43,6 +45,7 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
                   setState(() {
                     _selectedDate = picked;
                   });
+                // LocalManager().saveDateLocal(picked.toString());
               },
               initialDateTime: _selectedDate,
               minimumYear: 2000,
@@ -91,6 +94,7 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
           child: Text(
             _selectedDate == null //ternary expression to check if date is null
                 ? widget.title
+                // : LocalManager().getDateLocal(),
                 : DateFormat('yyyy-MM-dd hh:mm:ss')
                     .format(_selectedDate)
                     .toString(),
