@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +18,43 @@ class InfomationDateTimeItem extends StatefulWidget {
 
 class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
   DateTime _selectedDate;
+  final oneSec = const Duration(seconds: 1);
+
+  Timer _timer;
+  int _difference = 0;
+
+  startTimer() {
+    if (_timer != null) {
+      _timer.cancel();
+    }
+    DateTime dateTimeNow = DateTime.now();
+    final difference = dateTimeNow.difference(_selectedDate).inSeconds;
+
+    setState(() {
+      _difference = difference;
+    });
+
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_difference == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _difference--;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   _selectDate(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -45,9 +83,10 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
                   setState(() {
                     _selectedDate = picked;
                   });
+                // startTimer();
                 // LocalManager().saveDateLocal(picked.toString());
               },
-              initialDateTime: _selectedDate,
+              initialDateTime: DateTime.now(), // _selectedDate,
               minimumYear: 2000,
               maximumYear: 2025,
             ),
@@ -95,6 +134,7 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
             _selectedDate == null //ternary expression to check if date is null
                 ? widget.title
                 // : LocalManager().getDateLocal(),
+                // : "$_difference",
                 : DateFormat('yyyy-MM-dd hh:mm:ss')
                     .format(_selectedDate)
                     .toString(),

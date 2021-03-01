@@ -4,6 +4,8 @@ import './avatar_username_item.dart';
 import './infomation_item.dart';
 import './infomation_datetime.dart';
 
+import './test_count_down.dart';
+
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class Body extends StatelessWidget {
                 ],
               ),
             ),
+            TestCountDown(),
           ],
         ),
       ),
