@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class TestCountDown extends StatelessWidget {
   // int estimateTs = DateTime.now().millisecondsSinceEpoch;
-  int estimateTs = DateTime(2021, 3, 1, 17, 43, 50)
+  int estimateTs = DateTime(2021, 3, 3, 17, 00, 00)
       .millisecondsSinceEpoch; // set needed date
 
   @override

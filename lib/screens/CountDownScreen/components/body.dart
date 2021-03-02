@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './avatar_username_item.dart';
 import './infomation_item.dart';
 import './infomation_datetime.dart';
-
+import './information_datetime_item.dart';
 import './test_count_down.dart';
 
 class Body extends StatelessWidget {
@@ -21,14 +21,15 @@ class Body extends StatelessWidget {
         child: Column(
           children: [
             InfomationItem(
-              title: 'Thời gian tới ngày kết hôn',
+              title: 'Ngày chung giường',
             ),
             InfomationDateTimeItem(
               title: '0:0:0:0',
             ),
             InfomationItem(
-              title: 'Ngày Giờ Phút Giây',
+              title: 'Thời gian tới ngày kết hôn',
             ),
+            InformationDateTimeItem(),
             Container(
               height: 200,
               width: double.infinity,
@@ -44,7 +45,6 @@ class Body extends StatelessWidget {
                 ],
               ),
             ),
-            TestCountDown(),
           ],
         ),
       ),

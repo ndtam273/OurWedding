@@ -125,7 +125,7 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 60,
       width: double.infinity,
       child: FlatButton(
         onPressed: () => _selectDate(context),
