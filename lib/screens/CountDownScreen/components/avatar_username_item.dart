@@ -9,18 +9,25 @@ class AvatarUserNameItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: () {},
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FlatButton(
+            onPressed: () {
+              print('Pressed Avatar');
+            },
+            child: CircleAvatar(
               radius: 50,
               backgroundImage:
                   AssetImage("assets/images/avatar_user_empty.png"),
             ),
-            Padding(
+          ),
+          FlatButton(
+            onPressed: () {
+              print('Pressed UserName');
+            },
+            child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text(
                 username,
@@ -30,8 +37,8 @@ class AvatarUserNameItem extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
