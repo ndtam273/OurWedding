@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './avatar_username_item.dart';
 import './infomation_item.dart';
 import './infomation_datetime.dart';
+import './information_datetime_item.dart';
+import '../providers/person.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final personData = Provider.of<Persion>(context);
+    final loadMan = personData.findBySex(Sex.Man);
+    final loadWoman = personData.findBySex(Sex.Woman);
+
     return Container(
       height: double.infinity,
       decoration: BoxDecoration(
@@ -19,14 +26,15 @@ class Body extends StatelessWidget {
         child: Column(
           children: [
             InfomationItem(
-              title: 'Thời gian tới ngày kết hôn',
+              title: 'Ngày chung giường',
             ),
             InfomationDateTimeItem(
               title: '0:0:0:0',
             ),
             InfomationItem(
-              title: 'Ngày Giờ Phút Giây',
+              title: 'Thời gian tới ngày kết hôn',
             ),
+            InformationDateTimeItem(),
             Container(
               height: 200,
               width: double.infinity,
@@ -34,10 +42,10 @@ class Body extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   AvatarUserNameItem(
-                    username: 'User Name 1',
+                    item: loadMan,
                   ),
                   AvatarUserNameItem(
-                    username: 'User Name 2',
+                    item: loadWoman,
                   ),
                 ],
               ),
