@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-
-import './local_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InfomationDateTimeItem extends StatefulWidget {
   final String title;
@@ -17,6 +16,30 @@ class InfomationDateTimeItem extends StatefulWidget {
 
 class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
   DateTime _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _readSelectedDate();
+  }
+
+  _readSelectedDate() async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    int readMicroSecond = shared.getInt('kDateTime');
+    DateTime date = DateTime.fromMicrosecondsSinceEpoch(readMicroSecond);
+    setState(() {
+      _selectedDate = readMicroSecond > 0 ? date : null;
+    });
+  }
+
+  _saveSelectedDate(DateTime picked) async {
+    int saveMicroSecond = picked.microsecondsSinceEpoch;
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    await shared.setInt('kDateTime', saveMicroSecond);
+    setState(() {
+      _selectedDate = picked;
+    });
+  }
 
   _selectDate(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -39,13 +62,10 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
             height: 300,
             color: Colors.white,
             child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.dateAndTime,
+              mode: CupertinoDatePickerMode.date,
               onDateTimeChanged: (picked) {
                 if (picked != null && picked != _selectedDate)
-                  setState(() {
-                    _selectedDate = picked;
-                  });
-                // LocalManager().saveDateLocal(picked.toString());
+                  _saveSelectedDate(picked);
               },
               initialDateTime: _selectedDate,
               minimumYear: 2000,
@@ -77,27 +97,21 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
         );
       },
     );
-    if (picked != null && picked != _selectedDate)
-      setState(() {
-        _selectedDate = picked;
-      });
+    if (picked != null && picked != _selectedDate) _saveSelectedDate(picked);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 60,
       width: double.infinity,
       child: FlatButton(
         onPressed: () => _selectDate(context),
         child: Center(
           child: Text(
-            _selectedDate == null //ternary expression to check if date is null
-                ? widget.title
-                // : LocalManager().getDateLocal(),
-                : DateFormat('yyyy-MM-dd hh:mm:ss')
-                    .format(_selectedDate)
-                    .toString(),
+            _selectedDate == null
+                ? 'Chọn Ngày'
+                : DateFormat('yyyy-MM-dd').format(_selectedDate).toString(),
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
