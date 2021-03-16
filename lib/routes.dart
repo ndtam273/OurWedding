@@ -16,7 +16,6 @@ import 'package:source_code/screens/CountDownScreen/count_down_screen.dart';
 final Map<String, WidgetBuilder> routes = {
   CountDownScreen.routeName: (context) => CountDownScreen(),
   ChangeBackgroundScreen.routeName: (context) => ChangeBackgroundScreen(),
-  // ForgotPassword.routeName: (context) => ForgotPassword(),
   // LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
   // SignUpScreen.routeName: (context) => SignUpScreen(),
   // CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),

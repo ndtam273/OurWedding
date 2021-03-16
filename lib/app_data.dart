@@ -1,10 +1,6 @@
 import "package:flutter/material.dart";
+import 'dart:io';
 
-const BACKGROUND_IMAGES = const [
-  "assets/images/background.png",
-  "assets/images/background.png",
-  "assets/images/background.png",
-  "assets/images/background.png",
-  "assets/images/background.png",
-  "assets/images/background.png"
-];
+// final default = [
+//   File("assets/images/background.png"),
+// ];
