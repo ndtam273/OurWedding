@@ -4,8 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:provider/provider.dart';
-import 'package:source_code/app_data.dart';
-import 'package:source_code/providers/user.dart';
+import 'package:source_code/providers/user_app.dart';
 import 'package:source_code/size_config.dart';
 import 'dart:io';
 
@@ -29,8 +28,8 @@ class _BodyState extends State<Body> {
     final savedImage =
         await File(imageFile.path).copy("${appDir.path}/$fileName");
     // widget.onSelectImage(savedImage);
-    Provider.of<User>(context, listen: false).addBackground(savedImage);
-    print(Provider.of<User>(context, listen: false).backgroundImages.length);
+    Provider.of<UserApp>(context, listen: false).addBackground(savedImage);
+    print(Provider.of<UserApp>(context, listen: false).backgroundImages.length);
   }
 
   @override
@@ -46,7 +45,7 @@ class _BodyState extends State<Body> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: Consumer<User>(
+        child: Consumer<UserApp>(
           builder: (context, user, ch) {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

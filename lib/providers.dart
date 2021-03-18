@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'providers/person.dart';
-import 'providers/user.dart';
+import 'providers/user_app.dart';
 
 final List<ChangeNotifierProvider> providers = [
-  ChangeNotifierProvider<User>(
-    create: (_) => User(),
-  ),
-  ChangeNotifierProvider<Persion>(
-    create: (_) => Persion(),
+  ChangeNotifierProvider<UserApp>(
+    create: (_) => UserApp(),
   ),
 ];

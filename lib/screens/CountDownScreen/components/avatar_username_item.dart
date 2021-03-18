@@ -1,18 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:source_code/providers/person.dart';
+import 'package:source_code/providers/user_app.dart';
+
+import '../../../enums.dart';
 
 class AvatarUserNameItem extends StatelessWidget {
-  final PersionItem item;
+  final Sex sex;
 
   AvatarUserNameItem({
-    this.item,
+    this.sex,
   });
 
   TextEditingController _textFieldController = TextEditingController();
 
-  void _displayTextInputDialog(BuildContext context) async {
-    _textFieldController.text = item.name;
+  _displayTextInputDialog(BuildContext context) async {
+    final userAppData = Provider.of<UserApp>(context, listen: false);
+    String name =
+        sex == Sex.Man ? '${userAppData.nameMan}' : '${userAppData.nameWoman}';
+
+    _textFieldController.text = name;
 
     return showDialog(
       context: context,
@@ -33,18 +40,15 @@ class AvatarUserNameItem extends StatelessWidget {
               onPressed: () {
                 if (_textFieldController.text.isNotEmpty) {
                   // Save when text not empty
-                  Provider.of<Persion>(
-                    context,
-                    listen: false,
-                  ).updatePersion(
-                    item.sex,
-                    PersionItem(
-                      sex: item.sex,
-                      name: _textFieldController.text,
-                      nickName: item.nickName,
-                      avatar: item.avatar,
-                    ),
-                  );
+                  if (sex == Sex.Man) {
+                    userAppData.updateNameMan(
+                      _textFieldController.text,
+                    );
+                  } else {
+                    userAppData.updateNameWoman(
+                      _textFieldController.text,
+                    );
+                  }
                 }
                 Navigator.pop(context);
               },
@@ -55,15 +59,66 @@ class AvatarUserNameItem extends StatelessWidget {
     );
   }
 
+  _showBottonModalPopup(BuildContext ctx) {
+    final ThemeData theme = Theme.of(ctx);
+    assert(theme.platform != null);
+    switch (theme.platform) {
+      case TargetPlatform.iOS:
+        return _showCupertinoModalPopup(ctx);
+      default:
+        print('${theme.platform} not handle');
+        break;
+    }
+  }
+
+  _showCupertinoModalPopup(BuildContext ctx) {
+    showCupertinoModalPopup(
+      context: ctx,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text(
+          'Đổi avatar',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        message: const Text('Chọn avatar từ'),
+        actions: [
+          CupertinoActionSheetAction(
+            child: const Text('Chụp Ảnh'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: const Text('Albums'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          isDestructiveAction: true,
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.pop(context, 'Cancel');
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final userAppData = Provider.of<UserApp>(context);
+
     return Container(
+      padding: EdgeInsets.only(top: 15.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FlatButton(
             onPressed: () {
-              print('Pressed Avatar');
+              _showBottonModalPopup(context);
             },
             child: CircleAvatar(
               radius: 50,
@@ -75,14 +130,15 @@ class AvatarUserNameItem extends StatelessWidget {
             onPressed: () {
               _displayTextInputDialog(context);
             },
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                item.name,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white,
-                ),
+            child: Text(
+              sex == Sex.Man
+                  ? '${userAppData.nameMan}'
+                  : '${userAppData.nameWoman}',
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
               ),
             ),
           ),

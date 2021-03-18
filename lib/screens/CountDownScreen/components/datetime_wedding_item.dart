@@ -1,78 +1,62 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:source_code/providers/user_app.dart';
 
-class InfomationDateTimeItem extends StatefulWidget {
-  @override
-  _InfomationDateTimeItemState createState() => _InfomationDateTimeItemState();
-}
-
-class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
-  DateTime _selectedDate;
-
-  @override
-  void initState() {
-    super.initState();
-    _readSelectedDate();
-  }
-
-  _readSelectedDate() async {
-    SharedPreferences shared = await SharedPreferences.getInstance();
-    int readMicroSecond = shared.getInt('kDateTime');
-    DateTime date = DateTime.fromMicrosecondsSinceEpoch(readMicroSecond);
-    setState(() {
-      _selectedDate = readMicroSecond > 0 ? date : null;
-    });
-  }
-
-  _saveSelectedDate(DateTime picked) async {
-    int saveMicroSecond = picked.microsecondsSinceEpoch;
-    SharedPreferences shared = await SharedPreferences.getInstance();
-    await shared.setInt('kDateTime', saveMicroSecond);
-    setState(() {
-      _selectedDate = picked;
-    });
-  }
-
+class DateTimeWeddingItem extends StatelessWidget {
   _selectDate(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     assert(theme.platform != null);
     switch (theme.platform) {
       case TargetPlatform.android:
-        return buildMaterialDatePicker(context);
+        return _buildMaterialDatePicker(context);
       case TargetPlatform.iOS:
-        return buildCupertinoDatePicker(context);
+        return _buildCupertinoDatePicker(context);
       default:
+        print('${theme.platform} not handle');
         break;
     }
   }
 
-  buildCupertinoDatePicker(BuildContext context) {
+  _buildCupertinoDatePicker(BuildContext ctx) {
+    final userAppData = Provider.of<UserApp>(
+      ctx,
+      listen: false,
+    );
+    final dateTimeData = userAppData.weddingDay;
+
     showModalBottomSheet(
-        context: context,
+        context: ctx,
         builder: (BuildContext builder) {
           return Container(
-            height: 300,
+            height: 330,
             color: Colors.white,
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
-              onDateTimeChanged: (picked) {
-                if (picked != null && picked != _selectedDate)
-                  _saveSelectedDate(picked);
-              },
-              initialDateTime: _selectedDate,
+              initialDateTime: dateTimeData,
               minimumYear: 2000,
               maximumYear: 2125,
+              onDateTimeChanged: (picked) {
+                if (picked != null && picked != dateTimeData) {
+                  userAppData.updateWeddingDay(picked);
+                }
+              },
             ),
           );
         });
   }
 
-  buildMaterialDatePicker(BuildContext context) async {
+  _buildMaterialDatePicker(BuildContext ctx) async {
+    final userAppData = Provider.of<UserApp>(
+      ctx,
+      listen: false,
+    );
+    final dateTimeData = userAppData.weddingDay;
+
     final DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
+      context: ctx,
+      initialDate: dateTimeData,
       firstDate: DateTime(2000),
       lastDate: DateTime(2125),
       initialEntryMode: DatePickerEntryMode.calendar,
@@ -91,11 +75,16 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
         );
       },
     );
-    if (picked != null && picked != _selectedDate) _saveSelectedDate(picked);
+    if (picked != null && picked != dateTimeData) {
+      userAppData.updateWeddingDay(picked);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final userAppData = Provider.of<UserApp>(context);
+    final dateTimeData = userAppData.weddingDay;
+
     return Container(
       height: 60,
       width: double.infinity,
@@ -103,9 +92,9 @@ class _InfomationDateTimeItemState extends State<InfomationDateTimeItem> {
         onPressed: () => _selectDate(context),
         child: Center(
           child: Text(
-            _selectedDate == null
+            dateTimeData == null
                 ? 'Chọn Ngày'
-                : DateFormat('yyyy-MM-dd').format(_selectedDate).toString(),
+                : DateFormat('dd-MM-yyyy').format(dateTimeData).toString(),
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,

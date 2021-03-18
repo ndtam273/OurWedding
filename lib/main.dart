@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
           title: 'Our Wedding',
           debugShowCheckedModeBanner: false,
           theme: theme(),
-          // home: MyHomePage(title: 'Flutter Demo Home Page'),
           initialRoute: CountDownScreen.routeName,
           routes: routes),
     );
