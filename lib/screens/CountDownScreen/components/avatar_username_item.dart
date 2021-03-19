@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -93,6 +95,7 @@ class AvatarUserNameItem extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 CameraScreen.routeName,
+                arguments: sex,
               );
             },
           ),
@@ -118,6 +121,17 @@ class AvatarUserNameItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userAppData = Provider.of<UserApp>(context);
+    final avatar = sex == Sex.Man
+        ? userAppData.avatarMan.isNotEmpty
+            ? FileImage(
+                File(userAppData.avatarMan),
+              )
+            : AssetImage("assets/images/avatar_user_empty.png")
+        : userAppData.avatarWoman.isNotEmpty
+            ? FileImage(
+                File(userAppData.avatarWoman),
+              )
+            : AssetImage("assets/images/avatar_user_empty.png");
 
     return Container(
       padding: EdgeInsets.only(top: 15.0),
@@ -127,11 +141,7 @@ class AvatarUserNameItem extends StatelessWidget {
             onPressed: () {
               _showBottonModalPopup(context);
             },
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage:
-                  AssetImage("assets/images/avatar_user_empty.png"),
-            ),
+            child: CircleAvatar(radius: 50, backgroundImage: avatar),
           ),
           FlatButton(
             onPressed: () {

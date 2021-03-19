@@ -17,9 +17,9 @@ class UserApp with ChangeNotifier {
 
   UserApp({
     this.nameMan = 'Name of the man',
-    this.avatarMan,
+    this.avatarMan = '',
     this.nameWoman = 'Name of the woman',
-    this.avatarWoman,
+    this.avatarWoman = '',
     this.weddingDay,
     this.brideImage,
     this.groomImage,
@@ -46,13 +46,25 @@ class UserApp with ChangeNotifier {
     notifyListeners();
   }
 
+  /// For Man
   void updateNameMan(String name) {
     nameMan = name;
     notifyListeners();
   }
 
+  void updateAvatarMan(String imagePath) {
+    avatarMan = imagePath;
+    notifyListeners();
+  }
+
+  /// For Woman
   void updateNameWoman(String name) {
     nameWoman = name;
+    notifyListeners();
+  }
+
+  void updateAvatarWoman(String imagePath) {
+    avatarWoman = imagePath;
     notifyListeners();
   }
 }
