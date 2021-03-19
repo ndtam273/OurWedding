@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:source_code/providers/user_app.dart';
+import 'package:source_code/screens/CameraScreen/camera_screen.dart';
 
 import '../../../enums.dart';
 
@@ -88,12 +89,18 @@ class AvatarUserNameItem extends StatelessWidget {
             child: const Text('Chụp Ảnh'),
             onPressed: () {
               Navigator.pop(context);
+              // ...
+              Navigator.pushNamed(
+                context,
+                CameraScreen.routeName,
+              );
             },
           ),
           CupertinoActionSheetAction(
             child: const Text('Albums'),
             onPressed: () {
               Navigator.pop(context);
+              // ...
             },
           ),
         ],
