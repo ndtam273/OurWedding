@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:source_code/providers/user_app.dart';
 import 'package:source_code/screens/CameraScreen/camera_screen.dart';
@@ -90,20 +91,22 @@ class AvatarUserNameItem extends StatelessWidget {
           CupertinoActionSheetAction(
             child: const Text('Chụp Ảnh'),
             onPressed: () {
-              Navigator.pop(context);
-              // ...
-              Navigator.pushNamed(
-                context,
-                CameraScreen.routeName,
-                arguments: sex,
-              );
+              // Navigator.pop(context);
+              // // ...
+              // Navigator.pushNamed(
+              //   context,
+              //   CameraScreen.routeName,
+              //   arguments: sex,
+              // );
+
+              this._getImageFrom(ImageSource.camera, context);
             },
           ),
           CupertinoActionSheetAction(
             child: const Text('Albums'),
             onPressed: () {
-              Navigator.pop(context);
               // ...
+              this._getImageFrom(ImageSource.gallery, context);
             },
           ),
         ],
@@ -116,6 +119,30 @@ class AvatarUserNameItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future _getImageFrom(ImageSource source, BuildContext ctx) async {
+    PickedFile pickedFile = await ImagePicker().getImage(source: source);
+
+    if (pickedFile == null) {
+      print('No image selected.');
+    }
+
+    // Close ActionSheet
+    Navigator.pop(ctx);
+
+    // Save Provider
+    if (sex == Sex.Man) {
+      Provider.of<UserApp>(
+        ctx,
+        listen: false,
+      ).updateAvatarMan(pickedFile.path);
+    } else {
+      Provider.of<UserApp>(
+        ctx,
+        listen: false,
+      ).updateAvatarWoman(pickedFile.path);
+    }
   }
 
   @override

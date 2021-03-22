@@ -26,7 +26,7 @@ class Body extends StatelessWidget {
             InfomationItem(
               title: 'Thời gian tới ngày kết hôn',
             ),
-            // InformationDateTimeItem(),
+            InformationDateTimeItem(),
             Container(
               height: 200,
               width: double.infinity,
