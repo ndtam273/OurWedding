@@ -22,8 +22,9 @@ class _InformationDateTimeItemState extends State<InformationDateTimeItem> {
 
     bool isShowCountDown = weddingDayMilliseconds > 0;
 
-    return Container(
-      color: Colors.black26,
+    return AnimatedContainer(
+      duration: const Duration(seconds: 5),
+      color: isShowCountDown ? Colors.black26 : Colors.transparent,
       height: isShowCountDown ? 180 : 0,
       child: isShowCountDown
           ? StreamBuilder(
@@ -73,7 +74,16 @@ class _InformationDateTimeItemState extends State<InformationDateTimeItem> {
                 }
               },
             )
-          : Text('STOP'),
+          : Center(
+              child: Text(
+                'STOP !!!',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+            ),
     );
   }
 }

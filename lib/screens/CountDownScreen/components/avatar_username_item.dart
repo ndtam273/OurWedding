@@ -8,6 +8,7 @@ import 'package:source_code/providers/user_app.dart';
 import 'package:source_code/screens/CameraScreen/camera_screen.dart';
 
 import '../../../enums.dart';
+import 'avatar_animation.dart';
 
 class AvatarUserNameItem extends StatelessWidget {
   final Sex sex;
@@ -168,7 +169,9 @@ class AvatarUserNameItem extends StatelessWidget {
             onPressed: () {
               _showBottonModalPopup(context);
             },
-            child: CircleAvatar(radius: 50, backgroundImage: avatar),
+            child: AvatarAnimation(
+              avatar: avatar,
+            ),
           ),
           FlatButton(
             onPressed: () {
