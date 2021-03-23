@@ -10,4 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:source_code/main.dart';
 
-void main() {}
+void main() {
+  testWidgets('No Test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+  });
+}
