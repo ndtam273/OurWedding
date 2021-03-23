@@ -17,7 +17,7 @@ class AvatarUserNameItem extends StatelessWidget {
     this.sex,
   });
 
-  TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
 
   _displayTextInputDialog(BuildContext context) async {
     final userAppData = Provider.of<UserApp>(context, listen: false);

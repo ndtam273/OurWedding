@@ -1,6 +1,4 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DateTimeContentItem extends StatelessWidget {
   final String number;
@@ -61,47 +59,4 @@ class DateTimeContentItem extends StatelessWidget {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Container(
-  //     color: Colors.black,
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Container(
-  //           color: Colors.amber,
-  //           child: Text(
-  //             'Còn',
-  //             style: TextStyle(
-  //               fontWeight: FontWeight.bold,
-  //               fontSize: 20,
-  //             ),
-  //           ),
-  //         ),
-  //         Container(
-  //           color: Colors.amber,
-  //           child: Text(
-  //             number,
-  //             textAlign: TextAlign.end,
-  //             style: TextStyle(
-  //               fontWeight: FontWeight.bold,
-  //               fontSize: 20,
-  //             ),
-  //           ),
-  //         ),
-  //         Container(
-  //           color: Colors.amber,
-  //           child: Text(
-  //             title,
-  //             style: TextStyle(
-  //               fontWeight: FontWeight.bold,
-  //               fontSize: 20,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

@@ -62,7 +62,7 @@ class _CameraScreenState extends State<CameraScreen> {
     try {
       await controller.initialize();
     } on CameraException catch (e) {
-      print('Camera Exception ${e}');
+      print('Camera Exception $e');
       // _showCameraException(e);
     }
 
