@@ -1,3 +1,4 @@
+[![Flutter CI By Hieutt](https://github.com/ndtam273/OurWedding/actions/workflows/dart.yml/badge.svg?branch=master)](https://github.com/ndtam273/OurWedding/actions/workflows/dart.yml)
 # source_code
 
 A new Flutter project.
