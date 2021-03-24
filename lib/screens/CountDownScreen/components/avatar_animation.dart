@@ -29,6 +29,12 @@ class _AvatarAnimationState extends State<AvatarAnimation>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CircleAvatar(
       // Border color
