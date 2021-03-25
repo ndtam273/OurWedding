@@ -1,6 +1,4 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DateTimeContentItem extends StatelessWidget {
   final String number;
@@ -13,40 +11,47 @@ class DateTimeContentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: 20,
-        right: 20,
-      ),
+    return Container(
+      width: double.infinity,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-            child: Text(
-              'Còn',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+          Flexible(
+            child: Container(
+              width: 50.0,
+              child: Text(
+                'Còn :',
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
-          Container(
-            // width: min(number.length * 20.0, 300),
-            child: Text(
-              number,
-              // textAlign: TextAlign.end,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              child: Text(
+                number,
+                textAlign: TextAlign.end,
+                maxLines: 1,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
           ),
-          Container(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+          Flexible(
+            child: Container(
+              width: 50.0,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),

@@ -1,18 +1,30 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:source_code/providers/person.dart';
+import 'package:source_code/providers/user_app.dart';
+import 'package:source_code/screens/CameraScreen/camera_screen.dart';
+
+import '../../../enums.dart';
+import 'avatar_animation.dart';
 
 class AvatarUserNameItem extends StatelessWidget {
-  final PersionItem item;
+  final Sex sex;
 
   AvatarUserNameItem({
-    this.item,
+    this.sex,
   });
 
-  TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
 
-  void _displayTextInputDialog(BuildContext context) async {
-    _textFieldController.text = item.name;
+  _displayTextInputDialog(BuildContext context) async {
+    final userAppData = Provider.of<UserApp>(context, listen: false);
+    String name =
+        sex == Sex.Man ? '${userAppData.nameMan}' : '${userAppData.nameWoman}';
+
+    _textFieldController.text = name;
 
     return showDialog(
       context: context,
@@ -33,18 +45,15 @@ class AvatarUserNameItem extends StatelessWidget {
               onPressed: () {
                 if (_textFieldController.text.isNotEmpty) {
                   // Save when text not empty
-                  Provider.of<Persion>(
-                    context,
-                    listen: false,
-                  ).updatePersion(
-                    item.sex,
-                    PersionItem(
-                      sex: item.sex,
-                      name: _textFieldController.text,
-                      nickName: item.nickName,
-                      avatar: item.avatar,
-                    ),
-                  );
+                  if (sex == Sex.Man) {
+                    userAppData.updateNameMan(
+                      _textFieldController.text,
+                    );
+                  } else {
+                    userAppData.updateNameWoman(
+                      _textFieldController.text,
+                    );
+                  }
                 }
                 Navigator.pop(context);
               },
@@ -55,34 +64,128 @@ class AvatarUserNameItem extends StatelessWidget {
     );
   }
 
+  _showBottonModalPopup(BuildContext ctx) {
+    final ThemeData theme = Theme.of(ctx);
+    assert(theme.platform != null);
+    switch (theme.platform) {
+      case TargetPlatform.iOS:
+        return _showCupertinoModalPopup(ctx);
+      default:
+        print('${theme.platform} not handle');
+        break;
+    }
+  }
+
+  _showCupertinoModalPopup(BuildContext ctx) {
+    showCupertinoModalPopup(
+      context: ctx,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text(
+          'Đổi avatar',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        message: const Text('Chọn avatar từ'),
+        actions: [
+          CupertinoActionSheetAction(
+            child: const Text('Chụp Ảnh'),
+            onPressed: () {
+              // Navigator.pop(context);
+              // // ...
+              // Navigator.pushNamed(
+              //   context,
+              //   CameraScreen.routeName,
+              //   arguments: sex,
+              // );
+
+              this._getImageFrom(ImageSource.camera, context);
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: const Text('Albums'),
+            onPressed: () {
+              // ...
+              this._getImageFrom(ImageSource.gallery, context);
+            },
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          isDestructiveAction: true,
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.pop(context, 'Cancel');
+          },
+        ),
+      ),
+    );
+  }
+
+  Future _getImageFrom(ImageSource source, BuildContext ctx) async {
+    PickedFile pickedFile = await ImagePicker().getImage(source: source);
+
+    if (pickedFile == null) {
+      print('No image selected.');
+    }
+
+    // Close ActionSheet
+    Navigator.pop(ctx);
+
+    // Save Provider
+    if (sex == Sex.Man) {
+      Provider.of<UserApp>(
+        ctx,
+        listen: false,
+      ).updateAvatarMan(pickedFile.path);
+    } else {
+      Provider.of<UserApp>(
+        ctx,
+        listen: false,
+      ).updateAvatarWoman(pickedFile.path);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final userAppData = Provider.of<UserApp>(context);
+    final avatar = sex == Sex.Man
+        ? userAppData.avatarMan.isNotEmpty
+            ? FileImage(
+                File(userAppData.avatarMan),
+              )
+            : AssetImage("assets/images/avatar_user_empty.png")
+        : userAppData.avatarWoman.isNotEmpty
+            ? FileImage(
+                File(userAppData.avatarWoman),
+              )
+            : AssetImage("assets/images/avatar_user_empty.png");
+
     return Container(
+      padding: EdgeInsets.only(top: 15.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FlatButton(
             onPressed: () {
-              print('Pressed Avatar');
+              _showBottonModalPopup(context);
             },
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage:
-                  AssetImage("assets/images/avatar_user_empty.png"),
+            child: AvatarAnimation(
+              avatar: avatar,
             ),
           ),
           FlatButton(
             onPressed: () {
               _displayTextInputDialog(context);
             },
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                item.name,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white,
-                ),
+            child: Text(
+              sex == Sex.Man
+                  ? '${userAppData.nameMan}'
+                  : '${userAppData.nameWoman}',
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
               ),
             ),
           ),
