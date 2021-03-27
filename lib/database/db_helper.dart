@@ -10,13 +10,14 @@ class DBHelper {
     return sql.openDatabase(path.join(dbPath, 'MyDatabase.db'),
         onCreate: (db, version) {
       return db.execute(
-          'CREATE TABLE user_events(id TEXT PRIMARY KEY, selectedBackground TEXT, womanName TEXT, manName TEXT, womanAvt TEXT, manAvt TEXT, weddingDate DATETIME)');
+          'CREATE TABLE user_events(id TEXT PRIMARY KEY, woman_name TEXT, woman_avt TEXT, man_name TEXT, man_avt TEXT, date TEXT, background TEXT)');
     }, version: 1);
   }
 
-  static Future<void> insert(String table, Map<String, Object> data) async {
+  static Future<String> insert(String table, Map<String, Object> data) async {
     final db = await DBHelper.database();
     db.insert(table, data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    return data['id'];
   }
 
   static Future<List<Map<String, dynamic>>> getData(String table) async {
@@ -26,7 +27,9 @@ class DBHelper {
 
   static Future<int> update(Map<String, dynamic> row, String table) async {
     final db = await DBHelper.database();
-    String id = row['columnId'];
+    print('row here .... $row');
+    String id = row['id'];
+    print('id here....$id');
     return await db.update(table, row, where: 'id = ?', whereArgs: [id]);
   }
 
