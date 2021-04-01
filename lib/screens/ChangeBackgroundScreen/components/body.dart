@@ -5,6 +5,8 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:provider/provider.dart';
 import 'package:source_code/providers/user_app.dart';
+import 'package:source_code/screens/ChangeBackgroundScreen/components/background_item.dart';
+import 'package:source_code/screens/CountDownScreen/count_down_screen.dart';
 import 'package:source_code/size_config.dart';
 import 'dart:io';
 
@@ -34,12 +36,11 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    final userAppData = Provider.of<UserApp>(context);
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(
-            "assets/images/background.png",
-          ),
+          image: userAppData.getBackgroundImage(),
           fit: BoxFit.cover,
         ),
       ),
@@ -60,9 +61,29 @@ class _BodyState extends State<Body> {
                               size: getProportionateScreenWidth(48)),
                         ),
                       )
-                    : Image.file(user.backgroundImages[index]);
+                    : index == 1
+                        ? FlatButton(
+                            onPressed: () {
+                              Provider.of<UserApp>(
+                                context,
+                                listen: false,
+                              ).updateBackgroundSelected("");
+                              Navigator.of(context).pushReplacementNamed(
+                                  CountDownScreen.routeName);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/background.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          )
+                        : BackgroundItem(user.backgroundImages[index]);
               },
-              itemCount: user.backgroundImages.length,
+              itemCount: user.backgroundImages.length + 1,
             );
           },
         ),

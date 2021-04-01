@@ -10,6 +10,7 @@ class UserApp with ChangeNotifier {
   String avatarWoman;
 
   DateTime weddingDay;
+  String bgSelectedPath;
 
   UserApp({
     this.nameMan = 'Name of the man',
@@ -17,6 +18,7 @@ class UserApp with ChangeNotifier {
     this.nameWoman = 'Name of the woman',
     this.avatarWoman = '',
     this.weddingDay,
+    this.bgSelectedPath = '',
   });
 
   int _getWeddingDayMilliseconds() {
@@ -24,6 +26,12 @@ class UserApp with ChangeNotifier {
       return weddingDay.millisecondsSinceEpoch;
     }
     return 0;
+  }
+
+  ImageProvider getBackgroundImage() {
+    return bgSelectedPath.isNotEmpty
+        ? FileImage(File(bgSelectedPath))
+        : AssetImage("assets/images/background.png");
   }
 
   /// -------------------------------
@@ -36,6 +44,7 @@ class UserApp with ChangeNotifier {
       DataBaseHelper.columnNameWoman: nameWoman,
       DataBaseHelper.columnAvatarWoman: avatarWoman,
       DataBaseHelper.columnWeddingDay: _getWeddingDayMilliseconds(),
+      DataBaseHelper.columnBgSelected: bgSelectedPath,
     };
   }
 
@@ -52,6 +61,8 @@ class UserApp with ChangeNotifier {
     if (weddingDayMillisecond > 0) {
       weddingDay = DateTime.fromMillisecondsSinceEpoch(weddingDayMillisecond);
     }
+
+    bgSelectedPath = map[DataBaseHelper.columnBgSelected];
 
     notifyListeners();
   }
@@ -89,8 +100,9 @@ class UserApp with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateBackground() {
-    // ...
+  void updateBackgroundSelected(String path) {
+    bgSelectedPath = path;
+    _updateDB();
     notifyListeners();
   }
 

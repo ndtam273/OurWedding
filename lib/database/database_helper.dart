@@ -17,6 +17,7 @@ class DataBaseHelper {
   static final columnNameWoman = 'name_woman';
   static final columnAvatarWoman = 'avatar_woman';
   static final columnWeddingDay = 'wedding_day';
+  static final columnBgSelected = 'background_selected';
 
   // make this a singleton class
   DataBaseHelper._privateConstructor();
@@ -51,7 +52,8 @@ class DataBaseHelper {
             $columnAvatarMan TEXT,
             $columnNameWoman TEXT,
             $columnAvatarWoman TEXT,
-            $columnWeddingDay INTEGER
+            $columnWeddingDay INTEGER,
+            $columnBgSelected TEXT
           )
           ''');
   }

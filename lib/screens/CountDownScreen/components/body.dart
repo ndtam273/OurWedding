@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:source_code/providers/user_app.dart';
 import '../../../enums.dart';
 import './avatar_username_item.dart';
 import './infomation_item.dart';
@@ -8,11 +10,13 @@ import 'datetime_wedding_item.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userAppData = Provider.of<UserApp>(context);
+
     return Container(
       height: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/background.png"),
+          image: userAppData.getBackgroundImage(),
           fit: BoxFit.cover,
         ),
       ),
