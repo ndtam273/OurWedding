@@ -21,8 +21,7 @@ class _InformationDateTimeItemState extends State<InformationDateTimeItem> {
 
     bool isShowCountDown = weddingDayMilliseconds > 0;
 
-    return AnimatedContainer(
-      duration: const Duration(seconds: 5),
+    return Container(
       color: isShowCountDown ? Colors.black26 : Colors.transparent,
       height: isShowCountDown ? 180 : 0,
       child: isShowCountDown
