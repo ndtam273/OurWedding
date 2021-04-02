@@ -12,47 +12,21 @@ class DateTimeContentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Flexible(
-            child: Container(
-              width: 50.0,
-              child: Text(
-                'Còn :',
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
+          Text(
+            number,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
           ),
-          Flexible(
-            fit: FlexFit.tight,
-            child: Container(
-              child: Text(
-                number,
-                textAlign: TextAlign.end,
-                maxLines: 1,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-          Flexible(
-            child: Container(
-              width: 50.0,
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
             ),
           ),
         ],
