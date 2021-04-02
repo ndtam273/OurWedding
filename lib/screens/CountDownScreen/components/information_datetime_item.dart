@@ -23,7 +23,7 @@ class _InformationDateTimeItemState extends State<InformationDateTimeItem> {
 
     return Container(
       color: isShowCountDown ? Colors.black26 : Colors.transparent,
-      height: isShowCountDown ? 180 : 0,
+      height: isShowCountDown ? 80 : 0,
       child: isShowCountDown
           ? StreamBuilder(
               stream: Stream.periodic(Duration(seconds: 1), (i) => i),
@@ -34,6 +34,9 @@ class _InformationDateTimeItemState extends State<InformationDateTimeItem> {
                 Duration remaining = Duration(milliseconds: calulating);
                 var dateString =
                     '${remaining.inDays} : ${format.format(DateTime.fromMillisecondsSinceEpoch(remaining.inMilliseconds))}';
+                DateTime dateTimeCovert = DateTime.fromMillisecondsSinceEpoch(
+                    remaining.inMilliseconds);
+
                 if (remaining.inMilliseconds <= 0) {
                   return Center(
                     child: Text(
@@ -47,7 +50,8 @@ class _InformationDateTimeItemState extends State<InformationDateTimeItem> {
                   );
                 } else {
                   return Container(
-                    child: Column(
+                    width: double.infinity,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         DateTimeContentItem(
@@ -55,15 +59,15 @@ class _InformationDateTimeItemState extends State<InformationDateTimeItem> {
                           title: 'Ngày',
                         ),
                         DateTimeContentItem(
-                          number: '${remaining.inHours}',
+                          number: '${DateFormat('HH').format(dateTimeCovert)}',
                           title: 'Giờ',
                         ),
                         DateTimeContentItem(
-                          number: '${remaining.inMinutes}',
+                          number: '${DateFormat('mm').format(dateTimeCovert)}',
                           title: 'Phút',
                         ),
                         DateTimeContentItem(
-                          number: '${remaining.inSeconds}',
+                          number: '${DateFormat('ss').format(dateTimeCovert)}',
                           title: 'Giây',
                         ),
                       ],
